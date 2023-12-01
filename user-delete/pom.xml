@@ -9,12 +9,12 @@
         <artifactId>cokreat-jobs</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>content-auto-creator</artifactId>
+    <artifactId>user-delete</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>content-auto-creator</name>
+    <name>user-delete</name>
     <description>
-        Content Auto Creator Flink Job
+        User Delete Flink Job
     </description>
     
     <properties>
@@ -25,9 +25,14 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-scala_${scala.version}</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.sunbird</groupId>
@@ -78,44 +83,6 @@
             <version>3.3.3</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.cassandraunit</groupId>
-            <artifactId>cassandra-unit</artifactId>
-            <version>3.11.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-youtube</artifactId>
-            <version>v3-rev182-1.22.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava-jdk5</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>1.20.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.http-client</groupId>
-            <artifactId>google-http-client</artifactId>
-            <version>1.20.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-drive</artifactId>
-            <version>v3-rev83-1.20.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.oauth-client</groupId>
-            <artifactId>google-oauth-client-jetty</artifactId>
-            <version>1.20.0</version>
-        </dependency>
 
     </dependencies>
 
@@ -164,7 +131,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.sunbird.job.contentautocreator.task.ContentAutoCreatorStreamTask</mainClass>
+                                    <mainClass>org.sunbird.job.task.UserDeleteStreamTask</mainClass>
                                 </transformer>
                                 <!-- append default configs -->
                                 <transformer
@@ -221,7 +188,7 @@
                 <configuration>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <junitxml>.</junitxml>
-                    <filereports>content-auto-creator-testsuite.txt</filereports>
+                    <filereports>user-delete-testsuite.txt</filereports>
                 </configuration>
                 <executions>
                     <execution>

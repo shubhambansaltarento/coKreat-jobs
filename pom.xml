@@ -9,40 +9,19 @@
 		<maven>3.0.0</maven>
 	</prerequisites>
 
-    <groupId>org.sunbird</groupId>
-	<artifactId>knowledge-platform-jobs</artifactId>
+	<groupId>org.sunbird</groupId>
+	<artifactId>cokreat-jobs</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
-	<name>Knowledge Platform Jobs</name>
+	<name>coKreat Jobs</name>
 	<description>
-		KP Flink jobs for stream processing
+		coKreat Flink jobs
 	</description>
-	<url>https://sunbird.org/</url>
-
-	<profiles>
-		<profile>
-			<id>knowlg-jobs</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>jobs-core</module>
-				<module>auto-creator-v2</module>
-				<module>content-auto-creator</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>knowlg-core</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<modules>
-				<module>jobs-core</module>
-			</modules>
-		</profile>
-	</profiles>
-
-
+	<url>https://cokreat.sunbird.org/</url>
+	<modules>
+		<module>jobs-core</module>
+		<module>user-delete</module>
+	</modules>
 	<properties>
 		<!-- maven specific properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
