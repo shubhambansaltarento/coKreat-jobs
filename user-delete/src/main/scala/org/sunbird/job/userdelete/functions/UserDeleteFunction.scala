@@ -49,10 +49,8 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
       logger.debug("event edata : " + event.eData)
 
       val requestUrl = s"${config.programServiceBaseUrl}/v1/user/${event.userId}"
-      val reqHeaders = Map[String, String]("Content-Type" -> "application/json",
-        "Authorization" -> "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2ZjE2YmI0Y2UyYjA0ODc1YTI0NjZiNDQ3MDcwYzJmOSJ9.AKtOAdgnQsycjTk1FlOe8DNsvElxOzh99o92bl0t3Ls")
       logger.info("ContentAutoCreator :: searchContent :: Search Content requestUrl: " + requestUrl)
-      val httpResponse = httpUtil.authDelete(requestUrl, reqHeaders);
+      val httpResponse = httpUtil.delete(requestUrl);
       if (httpResponse.status == 200) {
         val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
         val responseCode = response.getOrElse("responseCode", 0).asInstanceOf[String]
