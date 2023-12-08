@@ -138,7 +138,6 @@ user-delete:
     include file("/data/flink/conf/base-config.conf")
     kafka {
       input.topic = "{{ user_delete_kafka_topic_name }}"
-      failed.topic = "{{ user_delete_kafka_failed_topic_name }}"
       groupId = "{{ user_delete_group }}
     }
     task {
