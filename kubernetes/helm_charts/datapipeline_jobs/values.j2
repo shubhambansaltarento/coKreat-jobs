@@ -133,12 +133,6 @@ base_config: |
     es {
         basePath = "{{ search_es_host }}"
     }
-    schema {
-      basePath = "{{ inquiry_schema_base_path }}"
-      supportedVersion = {
-        itemset = "2.0"
-      }
-    }
 user-delete:
   user-delete: |+
     include file("/data/flink/conf/base-config.conf")
