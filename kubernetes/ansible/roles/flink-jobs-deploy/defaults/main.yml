@@ -57,5 +57,4 @@ flink_jobs_console_log_level: INFO
 flink_libraries_log_level: ERROR
 
 user_delete_kafka_topic_name: "{{ sunbird_instance }}.delete.user"
-user_delete_kafka_failed_topic_name: "{{ sunbird_instance }}.delete.user.failed"
 user_delete_group: "{{ sunbird_instance }}_cokreat_user_delete_group"
