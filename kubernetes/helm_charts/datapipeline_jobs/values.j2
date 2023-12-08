@@ -3,8 +3,8 @@ imagepullsecrets: {{ imagepullsecrets }}
 dockerhub: {{ dockerhub }}
 repository: {{flink_repository|default('data-pipeline')}}
 image_tag: {{ image_tag }}
-azure_account: {{ cloud_public_storage_accountname }}
-azure_secret: {{ cloud_public_storage_secret }}
+azure_account: {{ azure_account }}
+azure_secret: {{ azure_secret }}
 csp: {{cloud_service_provider}}
 s3_access_key: {{ cloud_public_storage_accountname }}
 s3_secret_key: {{cloud_public_storage_secret}}
@@ -75,8 +75,9 @@ log4j_console_properties: |
 
 base_config: |
   kafka {
-      broker-servers = "{{ kafka_brokers }}"
-      zookeeper = "{{ zookeepers }}"
+      broker-servers = "{{ sunbird_kafka_brokers }}"
+      zookeeper = "{{ sunbird_zookeepers }}"
+
       producer {
         max-request-size = {{ producer_max_request_size }}
       }
@@ -138,123 +139,25 @@ base_config: |
         itemset = "2.0"
       }
     }
-async-questionset-publish:
-  async-questionset-publish: |+
+user-delete:
+  user-delete: |+
     include file("/data/flink/conf/base-config.conf")
     kafka {
-      input.topic = "{{ inquiry_assessment_publish_kafka_topic_name }}"
-      post_publish.topic = "{{ inquiry_assessment_post_publish_kafka_topic_name }}"
-      groupId = "{{ inquiry_assessment_publish_group }}"
+      input.topic = "{{ user_delete_kafka_topic_name }}"
+      failed.topic = "{{ user_delete_kafka_failed_topic_name }}"
+      groupId = "{{ user_delete_group }}
     }
     task {
       consumer.parallelism = 1
       parallelism = 1
       router.parallelism = 1
     }
-    question {
-      keyspace = "{{ question_keyspace_name }}"
-      table = "question_data"
-    }
-    questionset {
-      keyspace = "{{ hierarchy_keyspace_name }}"
-      table = "questionset_hierarchy"
-    }
-    print_service.base_url = "{{ kp_print_service_base_url }}"
-    #Cloud Storage Config
-    cloud_storage_type: "{{ cloud_service_provider }}"
-    cloud_storage_key: "{{ cloud_public_storage_accountname }}"
-    cloud_storage_secret: "{{ cloud_public_storage_secret }}"
-    cloud_storage_endpoint: "{{ cloud_public_storage_endpoint }}"
-    cloud_storage_container: "{{ cloud_storage_content_bucketname }}"
-
-    master.category.validation.enabled ="{{ master_category_validation_enabled }}"
-    cloudstorage {
-      metadata.replace_absolute_path={{ cloudstorage_replace_absolute_path | default('false') }}
-      metadata.list={{ cloudstorage_metadata_list }}
-      relative_path_prefix="{{ cloudstorage_relative_path_prefix }}"
-      read_base_path="{{ cloudstorage_base_path }}"
-      write_base_path={{ valid_cloudstorage_base_urls }}
-    }
+    program-service-baseUrl="{{ program_service_baseurl}}"
 
   flink-conf: |+
-    jobmanager.memory.flink.size: {{ flink_job_names['async-questionset-publish'].jobmanager_memory }}
-    taskmanager.memory.flink.size: {{ flink_job_names['async-questionset-publish'].taskmanager_memory }}
-    taskmanager.numberOfTaskSlots: {{ flink_job_names['async-questionset-publish'].taskslots }}
-    parallelism.default: 1
-    jobmanager.execution.failover-strategy: region
-    taskmanager.memory.network.fraction: 0.1
-
-questionset-republish:
-  questionset-republish: |+
-    include file("/data/flink/conf/base-config.conf")
-    kafka {
-      input.topic = "{{ inquiry_assessment_republish_kafka_topic_name }}"
-      post_publish.topic = "{{ inquiry_assessment_post_publish_kafka_topic_name }}"
-      groupId = "{{ inquiry_assessment_republish_group }}"
-    }
-    task {
-      consumer.parallelism = 1
-      parallelism = 1
-      router.parallelism = 1
-    }
-    question {
-      keyspace = "{{ question_keyspace_name }}"
-      table = "question_data"
-    }
-    questionset {
-      keyspace = "{{ hierarchy_keyspace_name }}"
-      table = "questionset_hierarchy"
-    }
-    print_service.base_url = "{{ kp_print_service_base_url }}"
-    #Cloud Storage Config
-    cloud_storage_type: "{{ cloud_service_provider }}"
-    cloud_storage_key: "{{ cloud_public_storage_accountname }}"
-    cloud_storage_secret: "{{ cloud_public_storage_secret }}"
-    cloud_storage_endpoint: "{{ cloud_public_storage_endpoint }}"
-    cloud_storage_container: "{{ cloud_storage_content_bucketname }}"
-    master.category.validation.enabled ="{{ master_category_validation_enabled }}"
-    cloudstorage {
-      metadata.replace_absolute_path={{ cloudstorage_replace_absolute_path | default('false') }}
-      metadata.list={{ cloudstorage_metadata_list }}
-      relative_path_prefix="{{ cloudstorage_relative_path_prefix }}"
-      read_base_path="{{ cloudstorage_base_path }}"
-      write_base_path={{ valid_cloudstorage_base_urls }}
-    }
-
-  flink-conf: |+
-    jobmanager.memory.flink.size: {{ flink_job_names['questionset-republish'].jobmanager_memory }}
-    taskmanager.memory.flink.size: {{ flink_job_names['questionset-republish'].taskmanager_memory }}
-    taskmanager.numberOfTaskSlots: {{ flink_job_names['questionset-republish'].taskslots }}
-    parallelism.default: 1
-    jobmanager.execution.failover-strategy: region
-    taskmanager.memory.network.fraction: 0.1
-
-quml-migrator:
-  quml-migrator: |+
-    include file("/data/flink/conf/base-config.conf")
-    kafka {
-      input.topic = "{{ inquiry_quml_migrator_kafka_topic_name }}"
-      republish.topic = "{{ inquiry_assessment_republish_kafka_topic_name }}"
-      groupId = "{{ inquiry_quml_migrator_group }}"
-    }
-    task {
-      consumer.parallelism = 1
-      parallelism = 1
-      router.parallelism = 1
-    }
-    question {
-      keyspace = "{{ question_keyspace_name }}"
-      table = "question_data"
-    }
-    questionset {
-      keyspace = "{{ hierarchy_keyspace_name }}"
-      table = "questionset_hierarchy"
-    }
-
-  flink-conf: |+
-    jobmanager.memory.flink.size: {{ flink_job_names['quml-migrator'].jobmanager_memory }}
-    taskmanager.memory.flink.size: {{ flink_job_names['quml-migrator'].taskmanager_memory }}
-    taskmanager.numberOfTaskSlots: {{ flink_job_names['quml-migrator'].taskslots }}
+    jobmanager.memory.flink.size: {{ flink_job_names['user-delete'].jobmanager_memory }}
+    taskmanager.memory.flink.size: {{ flink_job_names['user-delete'].taskmanager_memory }}
+    taskmanager.numberOfTaskSlots: {{ flink_job_names['user-delete'].taskslots }}
     parallelism.default: 1
     jobmanager.execution.failover-strategy: region
     taskmanager.memory.network.fraction: 0.1
