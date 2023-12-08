@@ -19,7 +19,8 @@ node('build-slave') {
                 dir('cokreat-jobs') {
                    checkout scm
                    commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                   build_tag = sh(script: "echo " + params.inquiry_release_tag.split('/')[-1] + "_" + commit_hash + "_" + env.BUILD_NUMBER, returnStdout: true).trim()
+                   build_tag = sh(script: "echo " + params.cokreat_release_tag.split('/')[-1] + "_" + commit_hash + "_" + env.BUILD_NUMBER, returnStdout: true).trim()
+                   echo "build_tag: " + build_tag
                    echo "build_tag: " + build_tag
                    cloud_store_group_id = params.cloud_store_group_id
                    cloud_store_artifact_id = params.cloud_store_artifact_id
