@@ -138,7 +138,7 @@ user-delete:
     include file("/data/flink/conf/base-config.conf")
     kafka {
       input.topic = "{{ user_delete_kafka_topic_name }}"
-      groupId = "{{ user_delete_group }}
+      groupId = "{{ user_delete_group }}"
     }
     task {
       consumer.parallelism = 1
