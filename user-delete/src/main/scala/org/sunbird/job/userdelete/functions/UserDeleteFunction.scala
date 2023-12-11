@@ -5,13 +5,10 @@ import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.slf4j.LoggerFactory
 import org.sunbird.job.userdelete.domain.Event
-import org.sunbird.job.domain.`object`.{DefinitionCache, ObjectDefinition}
 import org.sunbird.job.task.UserDeleteConfig
 import org.sunbird.job.util._
 import org.sunbird.job.{BaseProcessFunction, Metrics}
 import org.sunbird.job.exception.ServerException
-import org.sunbird.userdelete.util.UserDeleteConstants
-
 
 import java.util
 
@@ -52,8 +49,9 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
       logger.info("ContentAutoCreator :: searchContent :: Search Content requestUrl: " + requestUrl)
       val httpResponse = httpUtil.delete(requestUrl);
       if (httpResponse.status == 200) {
+        logger.info("Received Success Response.")
         val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
-        val responseCode = response.getOrElse("responseCode", 0).asInstanceOf[String]
+        val responseCode = response.getOrElse("responseCode", "0").asInstanceOf[String]
         if (responseCode == "OK") {
           logger.info("UserDelete :: Deleting User Success")
         }
