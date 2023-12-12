@@ -7,7 +7,7 @@ import org.apache.flink.api.java.typeutils.TypeExtractor
 import org.sunbird.job.BaseJobConfig
 import scala.collection.JavaConverters._
 
-class UserDeleteConfig(override val config: Config) extends BaseJobConfig(config, "user-delete") {
+class UserDeleteConfig(override val config: Config) extends BaseJobConfig(config, "async-user-delete") {
 
   private val serialVersionUID = 2905979434303791379L
 

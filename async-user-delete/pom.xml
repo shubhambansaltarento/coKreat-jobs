@@ -9,10 +9,10 @@
         <artifactId>cokreat-jobs</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>user-delete</artifactId>
+    <artifactId>async-user-delete</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>user-delete</name>
+    <name>async-user-delete</name>
     <description>
         User Delete Flink Job
     </description>

@@ -133,8 +133,8 @@ base_config: |
     es {
         basePath = "{{ search_es_host }}"
     }
-user-delete:
-  user-delete: |+
+async-user-delete:
+  async-user-delete: |+
     include file("/data/flink/conf/base-config.conf")
     kafka {
       input.topic = "{{ user_delete_kafka_topic_name }}"
@@ -148,9 +148,9 @@ user-delete:
     program-service-baseUrl="{{ program_service_baseurl}}"
 
   flink-conf: |+
-    jobmanager.memory.flink.size: {{ flink_job_names['user-delete'].jobmanager_memory }}
-    taskmanager.memory.flink.size: {{ flink_job_names['user-delete'].taskmanager_memory }}
-    taskmanager.numberOfTaskSlots: {{ flink_job_names['user-delete'].taskslots }}
+    jobmanager.memory.flink.size: {{ flink_job_names['async-user-delete'].jobmanager_memory }}
+    taskmanager.memory.flink.size: {{ flink_job_names['async-user-delete'].taskmanager_memory }}
+    taskmanager.numberOfTaskSlots: {{ flink_job_names['async-user-delete'].taskslots }}
     parallelism.default: 1
     jobmanager.execution.failover-strategy: region
     taskmanager.memory.network.fraction: 0.1

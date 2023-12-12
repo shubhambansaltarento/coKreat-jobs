@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>org.sunbird</groupId>
-            <artifactId>user-delete</artifactId>
+            <artifactId>async-user-delete</artifactId>
             <version>1.0.0</version>
             <type>jar</type>
         </dependency>

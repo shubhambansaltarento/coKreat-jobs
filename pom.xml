@@ -20,9 +20,9 @@
 	<url>https://cokreat.sunbird.org/</url>
 	<modules>
 		<module>jobs-core</module>
-		<module>auto-creator-v2</module>
-		<module>content-auto-creator</module>
-		<module>user-delete</module>
+		<!--<module>auto-creator-v2</module>
+		<module>content-auto-creator</module>-->
+		<module>async-user-delete</module>
 	</modules>
 	<properties>
 		<!-- maven specific properties -->
