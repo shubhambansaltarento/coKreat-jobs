@@ -31,9 +31,10 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
 
   private def getErrorDetails(httpResponse: HTTPResponse): String = {
     logger.info("UserDelete:: getErrorDetails:: httpResponse.body:: " + httpResponse.body)
-    val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
-    if (null != response) " | Response Code :" + httpResponse.status + " | Result : " + response.getOrElse("result", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]] + " | Error Message : " + response.getOrElse("params", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]]
-    else " | Null Response Received."
+    throw new ServerException("ERR_NOTIFICATION_API_CALL", s"Invalid Response received | Response Code: ${httpResponse.status} , Response Body:  " + httpResponse.body)
+    //val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
+    //if (null != response) " | Response Code :" + httpResponse.status + " | Result : " + response.getOrElse("result", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]] + " | Error Message : " + response.getOrElse("params", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]]
+    //else " | Null Response Received."
   }
 
   override def processElement(event: Event,
@@ -49,12 +50,12 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
       logger.info("ContentAutoCreator :: searchContent :: Search Content requestUrl: " + requestUrl)
       val httpResponse = httpUtil.delete(requestUrl);
       if (httpResponse.status == 200) {
-        logger.info("Received Success Response.")
-        val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
-        val responseCode = response.getOrElse("responseCode", "0").asInstanceOf[String]
-        if (responseCode == "OK") {
+        //logger.info("Received Success Response.")
+        //val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
+        //val responseCode = response.getOrElse("responseCode", "0").asInstanceOf[String]
+        //if (responseCode == "OK") {
           logger.info("UserDelete :: Deleting User Success")
-        }
+        //}
       } else {
         throw new ServerException("UserDelete:: ERR_API_CALL", "Invalid Response received while deleting user for : " + getErrorDetails(httpResponse))
       }
