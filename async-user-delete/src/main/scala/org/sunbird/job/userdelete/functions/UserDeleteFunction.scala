@@ -47,15 +47,10 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
       logger.debug("event edata : " + event.eData)
 
       val requestUrl = s"${config.programServiceBaseUrl}/program/v1/user/${event.userId}"
-      logger.info("ContentAutoCreator :: searchContent :: Search Content requestUrl: " + requestUrl)
+      logger.info("UserDelete :: searchContent :: Search Content requestUrl: " + requestUrl)
       val httpResponse = httpUtil.delete(requestUrl);
       if (httpResponse.status == 200) {
-        //logger.info("Received Success Response.")
-        //val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
-        //val responseCode = response.getOrElse("responseCode", "0").asInstanceOf[String]
-        //if (responseCode == "OK") {
-          logger.info("UserDelete :: Deleting User Success")
-        //}
+        logger.info("UserDelete :: Deleting User Success")
       } else {
         throw new ServerException("UserDelete:: ERR_API_CALL", "Invalid Response received while deleting user for : " + getErrorDetails(httpResponse))
       }

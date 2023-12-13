@@ -20,8 +20,6 @@
 	<url>https://cokreat.sunbird.org/</url>
 	<modules>
 		<module>jobs-core</module>
-		<!--<module>auto-creator-v2</module>
-		<module>content-auto-creator</module>-->
 		<module>async-user-delete</module>
 	</modules>
 	<properties>
@@ -33,9 +31,6 @@
 		<kafka.version>2.4.1</kafka.version>
 		<jackson-jaxrs.version>1.9.13</jackson-jaxrs.version>
 		<scoverage.plugin.version>1.4.0</scoverage.plugin.version>
-		<CLOUD_STORE_GROUP_ID>org.sunbird</CLOUD_STORE_GROUP_ID>
-		<CLOUD_STORE_ARTIFACT_ID>cloud-store-sdk_2.12</CLOUD_STORE_ARTIFACT_ID>
-		<CLOUD_STORE_VERSION>1.4.6</CLOUD_STORE_VERSION>
 	</properties>
 
 	<repositories>
@@ -67,11 +62,6 @@
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-library</artifactId>
 			<version>${scala.maj.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.10.0</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
