@@ -31,10 +31,10 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
 
   private def getErrorDetails(httpResponse: HTTPResponse): String = {
     logger.info("UserDelete:: getErrorDetails:: httpResponse.body:: " + httpResponse.body)
-    throw new ServerException("ERR_NOTIFICATION_API_CALL", s"Invalid Response received | Response Code: ${httpResponse.status} , Response Body:  " + httpResponse.body)
-    //val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
-    //if (null != response) " | Response Code :" + httpResponse.status + " | Result : " + response.getOrElse("result", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]] + " | Error Message : " + response.getOrElse("params", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]]
-    //else " | Null Response Received."
+    //throw new ServerException("ERR_NOTIFICATION_API_CALL", s"Invalid Response received | Response Code: ${httpResponse.status} , Response Body:  " + httpResponse.body)
+    val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
+    if (null != response) " | Response Code :" + httpResponse.status + " | Result : " + response.getOrElse("result", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]] + " | Error Message : " + response.getOrElse("params", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]]
+    else " | Null Response Received."
   }
 
   override def processElement(event: Event,
