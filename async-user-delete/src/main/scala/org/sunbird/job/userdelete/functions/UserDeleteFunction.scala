@@ -46,7 +46,7 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
       logger.info("Processing event for user delete operation having identifier : " + event.userId)
       logger.debug("event edata : " + event.eData)
 
-      val requestUrl = s"${config.programServiceBaseUrl}/v1/user/${event.userId}"
+      val requestUrl = s"${config.programServiceBaseUrl}/program/v1/user/${event.userId}"
       logger.info("ContentAutoCreator :: searchContent :: Search Content requestUrl: " + requestUrl)
       val httpResponse = httpUtil.delete(requestUrl);
       if (httpResponse.status == 200) {
