@@ -4,7 +4,18 @@ dockerhub: {{ dockerhub }}
 repository: {{flink_repository|default('cokreat-jobs')}}
 image_tag: {{ image_tag }}
 
-
+azure_account: {{ azure_account }}
+azure_secret: {{ azure_secret }}
+csp: {{cloud_service_provider}}
+s3_access_key: {{ cloud_public_storage_accountname }}
+s3_secret_key: {{cloud_public_storage_secret}}
+{% if cloud_service_provider == "oci" %}
+s3_endpoint: {{oci_flink_s3_storage_endpoint}}
+s3_region: {{s3_region}}
+s3_path_style_access: true
+{% else %}
+s3_endpoint: {{cloud_public_storage_endpoint}}
+{% endif %}
 
 serviceMonitor:
   enabled: {{ service_monitor_enabled | lower}}
