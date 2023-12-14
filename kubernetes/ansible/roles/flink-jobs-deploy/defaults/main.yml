@@ -39,7 +39,7 @@ producer_max_request_size: 1572864
 
 ### class name vars
 flink_job_names:
-  async-user-delete:
+  cokreat-user-delete:
     job_class_name: 'org.sunbird.job.task.UserDeleteStreamTask'
     replica: 1
     jobmanager_memory: 2048m

@@ -42,7 +42,7 @@ object UserDeleteStreamTask {
     val configFilePath = Option(ParameterTool.fromArgs(args).get("config.file.path"))
     val config = configFilePath.map {
       path => ConfigFactory.parseFile(new File(path)).resolve()
-    }.getOrElse(ConfigFactory.load("async-user-delete.conf").withFallback(ConfigFactory.systemEnvironment()))
+    }.getOrElse(ConfigFactory.load("cokreat-user-delete.conf").withFallback(ConfigFactory.systemEnvironment()))
     val userDeleteConfig = new UserDeleteConfig(config)
     val kafkaUtil = new FlinkKafkaConnector(userDeleteConfig)
     val httpUtil = new HttpUtil

@@ -20,7 +20,7 @@
 	<url>https://cokreat.sunbird.org/</url>
 	<modules>
 		<module>jobs-core</module>
-		<module>async-user-delete</module>
+		<module>cokreat-user-delete</module>
 	</modules>
 	<properties>
 		<!-- maven specific properties -->

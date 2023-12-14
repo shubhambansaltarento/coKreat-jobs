@@ -3,18 +3,9 @@ imagepullsecrets: {{ imagepullsecrets }}
 dockerhub: {{ dockerhub }}
 repository: {{flink_repository|default('cokreat-jobs')}}
 image_tag: {{ image_tag }}
-azure_account: {{ azure_account }}
-azure_secret: {{ azure_secret }}
-csp: {{cloud_service_provider}}
-s3_access_key: {{ cloud_public_storage_accountname }}
-s3_secret_key: {{cloud_public_storage_secret}}
-{% if cloud_service_provider == "oci" %}
-s3_endpoint: {{oci_flink_s3_storage_endpoint}}
-s3_region: {{s3_region}}
-s3_path_style_access: true
-{% else %}
-s3_endpoint: {{cloud_public_storage_endpoint}}
-{% endif %}
+
+
+
 serviceMonitor:
   enabled: {{ service_monitor_enabled | lower}}
 
@@ -133,8 +124,8 @@ base_config: |
     es {
         basePath = "{{ search_es_host }}"
     }
-async-user-delete:
-  async-user-delete: |+
+cokreat-user-delete:
+  cokreat-user-delete: |+
     include file("/data/flink/conf/base-config.conf")
     kafka {
       input.topic = "{{ user_delete_kafka_topic_name }}"
@@ -148,9 +139,9 @@ async-user-delete:
     program-service-baseUrl="{{ program_service_baseurl}}"
 
   flink-conf: |+
-    jobmanager.memory.flink.size: {{ flink_job_names['async-user-delete'].jobmanager_memory }}
-    taskmanager.memory.flink.size: {{ flink_job_names['async-user-delete'].taskmanager_memory }}
-    taskmanager.numberOfTaskSlots: {{ flink_job_names['async-user-delete'].taskslots }}
+    jobmanager.memory.flink.size: {{ flink_job_names['cokreat-user-delete'].jobmanager_memory }}
+    taskmanager.memory.flink.size: {{ flink_job_names['cokreat-user-delete'].taskmanager_memory }}
+    taskmanager.numberOfTaskSlots: {{ flink_job_names['cokreat-user-delete'].taskslots }}
     parallelism.default: 1
     jobmanager.execution.failover-strategy: region
     taskmanager.memory.network.fraction: 0.1
