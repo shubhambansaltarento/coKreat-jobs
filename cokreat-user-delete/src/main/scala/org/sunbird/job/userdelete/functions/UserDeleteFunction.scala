@@ -5,13 +5,10 @@ import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.slf4j.LoggerFactory
 import org.sunbird.job.userdelete.domain.Event
-import org.sunbird.job.domain.`object`.{DefinitionCache, ObjectDefinition}
 import org.sunbird.job.task.UserDeleteConfig
 import org.sunbird.job.util._
 import org.sunbird.job.{BaseProcessFunction, Metrics}
 import org.sunbird.job.exception.ServerException
-import org.sunbird.userdelete.util.UserDeleteConstants
-
 
 import java.util
 
@@ -48,15 +45,11 @@ class UserDeleteFunction(config: UserDeleteConfig, httpUtil: HttpUtil)
       logger.info("Processing event for user delete operation having identifier : " + event.userId)
       logger.debug("event edata : " + event.eData)
 
-      val requestUrl = s"${config.programServiceBaseUrl}/v1/user/${event.userId}"
-      logger.info("ContentAutoCreator :: searchContent :: Search Content requestUrl: " + requestUrl)
+      val requestUrl = s"${config.programServiceBaseUrl}/program/v1/user/${event.userId}"
+      logger.info("UserDelete :: searchContent :: Search Content requestUrl: " + requestUrl)
       val httpResponse = httpUtil.delete(requestUrl);
       if (httpResponse.status == 200) {
-        val response = JSONUtil.deserialize[Map[String, AnyRef]](httpResponse.body)
-        val responseCode = response.getOrElse("responseCode", 0).asInstanceOf[String]
-        if (responseCode == "OK") {
-          logger.info("UserDelete :: Deleting User Success")
-        }
+        logger.info("UserDelete :: Deleting User Success")
       } else {
         throw new ServerException("UserDelete:: ERR_API_CALL", "Invalid Response received while deleting user for : " + getErrorDetails(httpResponse))
       }

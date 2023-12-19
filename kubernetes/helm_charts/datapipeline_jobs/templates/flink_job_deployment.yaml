@@ -117,7 +117,7 @@ spec:
                "-Dpresto.s3.region={{ .Values.s3_region }}",
                "-Dpresto.s3.path-style-access={{ .Values.s3_path_style_access }}",
                {{- else }}
-               "-Dfs.azure.account.key.{{ .Values.azure_account }}.blob.core.windows.net={{ .Values.azure_secret }}",
+               "-Dfs.azure.account.key.{{ .Values.csp_account }}.blob.core.windows.net={{ .Values.csp_secret }}",
                {{- end}}
                "-Dweb.submit.enable=false",
                "-Dmetrics.reporter.prom.class=org.apache.flink.metrics.prometheus.PrometheusReporter",
@@ -198,7 +198,7 @@ spec:
           "-Dpresto.s3.endpoint={{ .Values.s3_region }}",
           "-Dpresto.s3.path.style.access={{ .Values.s3_path_style_access }}",
           {{- else}}
-          "-Dfs.azure.account.key.{{ .Values.azure_account }}.blob.core.windows.net={{ .Values.azure_secret }}",
+          "-Dfs.azure.account.key.{{ .Values.csp_account }}.blob.core.windows.net={{ .Values.csp_secret }}",
           {{- end}}
           "-Dweb.submit.enable=false",
           "-Dmetrics.reporter.prom.class=org.apache.flink.metrics.prometheus.PrometheusReporter",
