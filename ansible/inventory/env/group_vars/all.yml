@@ -5,6 +5,8 @@ ansible_vault_password: "{{lp_vault_ansible_vault_password}}"
 env_name: "{{ env }}"
 instance_name: "{{ env }}"
 instance: "{{ env }}"
+csp_account: "{{ cloud_public_storage_accountname }}"
+csp_secret: "{{ cloud_public_storage_secret }}"
 
 ### Global vars
 flink_namespace: "flink-kp-{{ instance }}"
