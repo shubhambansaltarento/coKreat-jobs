@@ -73,5 +73,5 @@ metrics_data_transformer_consumer_parallelism: 1
 metrics_data_transformer_parallelism: 1
 metrics_data_transformer_producer_parallelism: 1
 
-ed_content_service_base_url: "http://{{ed_private_ingressgateway_ip}}/content"
+ed_content_service_base_url: "http://{{private_ingressgateway_ip}}/content"
 dock_content_service_base_url: "http://{{dock_private_ingressgateway_ip}}/content"
