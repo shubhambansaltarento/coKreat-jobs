@@ -147,7 +147,7 @@ cokreat-user-delete:
       parallelism = 1
       router.parallelism = 1
     }
-    program-service-baseUrl="{{ program_service_baseurl}}"
+    program-service-baseUrl="{{ program_service_baseurl }}"
 
   flink-conf: |+
     jobmanager.memory.flink.size: {{ flink_job_names['cokreat-user-delete'].jobmanager_memory }}
