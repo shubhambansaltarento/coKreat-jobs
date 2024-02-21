@@ -66,12 +66,12 @@ flink_libraries_log_level: ERROR
 user_delete_kafka_topic_name: "{{ sunbird_instance }}.delete.user"
 user_delete_group: "{{ sunbird_instance }}_cokreat_user_delete_group"
 
-metrics_data_transformer_kafka_topic_name: "{{ sunbird_instance }}.learning.graph.events"
-metrics_data_transformer_group: "{{ sunbird_instance }}-metrics-data-transformer-group"
+metrics_data_transformer_kafka_topic_name: "{{ env }}.learning.graph.events"
+metrics_data_transformer_group: "{{ env }}-metrics-data-transformer-group"
 
 metrics_data_transformer_consumer_parallelism: 1
 metrics_data_transformer_parallelism: 1
 metrics_data_transformer_producer_parallelism: 1
 
-ed_content_service_base_url: "http://{{private_ingressgateway_ip}}/content"
-dock_content_service_base_url: "http://{{dock_private_ingressgateway_ip}}/content"
+ed_content_service_base_url: "http://{{ private_ingressgateway_ip }}/content"
+dock_content_service_base_url: "http://{{ dock_private_ingressgateway_ip }}/content"
