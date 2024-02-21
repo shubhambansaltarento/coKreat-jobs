@@ -5,7 +5,7 @@ import org.sunbird.job.domain.reader.JobRequest
 
 class Event(eventMap: java.util.Map[String, Any], partition: Int, offset: Long) extends JobRequest(eventMap, partition, offset) {
 
-  private val jobName = "MetricsDataTransformer"
+  private val jobName = "metrics-dat-transformer"
 
   def nodeUniqueId: String = readOrDefault("nodeUniqueId", "")
 

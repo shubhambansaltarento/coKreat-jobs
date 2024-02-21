@@ -47,7 +47,7 @@ flink_job_names:
     taskslots: 1
     cpu_requests: 0.3
   metrics-data-transformer:
-    job_class_name: 'org.sunbird.job.task.MetricsDataTransformerStreamTask'
+    job_class_name: 'org.sunbird.job.metricstransformer.task.MetricsDataTransformerStreamTask'
     replica: 1
     jobmanager_memory: 2048m
     taskmanager_memory: 2048m
