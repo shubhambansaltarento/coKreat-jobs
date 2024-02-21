@@ -177,7 +177,7 @@ metrics-data-transformer:
       sourcing.content.basePath = "{{ dock_content_service_base_url }}"
     }
     sourcing.update.api.response.error.code = ["404", "400"]
-    data.metrics = ["me_totalRatingsCount","me_averageRating","me_totalTimeSpentInSec","me_totalPlaySessionCount"]
+    data.metrics = ["me_totalRatingsCount","me_averageRating","me_totalTimeSpentInSec","me_totalPlaySessionCount", "name", "description"]
 
   flink-conf: |+
     jobmanager.memory.flink.size: {{ flink_job_names['metrics-data-transformer'].jobmanager_memory }}
