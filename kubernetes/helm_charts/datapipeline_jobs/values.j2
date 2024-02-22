@@ -147,12 +147,42 @@ cokreat-user-delete:
       parallelism = 1
       router.parallelism = 1
     }
-    program-service-baseUrl="{{ program_service_baseurl}}"
+    program-service-baseUrl="{{ program_service_baseurl }}"
 
   flink-conf: |+
     jobmanager.memory.flink.size: {{ flink_job_names['cokreat-user-delete'].jobmanager_memory }}
     taskmanager.memory.flink.size: {{ flink_job_names['cokreat-user-delete'].taskmanager_memory }}
     taskmanager.numberOfTaskSlots: {{ flink_job_names['cokreat-user-delete'].taskslots }}
+    parallelism.default: 1
+    jobmanager.execution.failover-strategy: region
+    taskmanager.memory.network.fraction: 0.1
+
+metrics-data-transformer:
+  metrics-data-transformer: |+
+    include file("/data/flink/conf/base-config.conf")
+    kafka {
+      input.topic = "{{ metrics_data_transformer_kafka_topic_name }}"
+      groupId = "{{ metrics_data_transformer_group }}"
+    }
+
+    task {
+      consumer.parallelism = {{ metrics_data_transformer_consumer_parallelism }}
+      parallelism = {{ metrics_data_transformer_parallelism }}
+      producer.parallelism = {{ metrics_data_transformer_producer_parallelism }}
+    }
+    content_read_api = "/content/v3/read"
+    content_update_api = "/content/v4/system/update"
+    service {
+      content.basePath = "{{ ed_content_service_base_url }}"
+      sourcing.content.basePath = "{{ dock_content_service_base_url }}"
+    }
+    sourcing.update.api.response.error.code = ["404", "400"]
+    data.metrics = ["me_totalRatingsCount","me_averageRating","me_totalTimeSpentInSec","me_totalPlaySessionCount", "name", "description"]
+
+  flink-conf: |+
+    jobmanager.memory.flink.size: {{ flink_job_names['metrics-data-transformer'].jobmanager_memory }}
+    taskmanager.memory.flink.size: {{ flink_job_names['metrics-data-transformer'].taskmanager_memory }}
+    taskmanager.numberOfTaskSlots: {{ flink_job_names['metrics-data-transformer'].taskslots }}
     parallelism.default: 1
     jobmanager.execution.failover-strategy: region
     taskmanager.memory.network.fraction: 0.1

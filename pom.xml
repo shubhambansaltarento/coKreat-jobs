@@ -21,6 +21,7 @@
 	<modules>
 		<module>jobs-core</module>
 		<module>cokreat-user-delete</module>
+		<module>metrics-data-transformer</module>
 	</modules>
 	<properties>
 		<!-- maven specific properties -->

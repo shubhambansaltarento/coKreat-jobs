@@ -48,10 +48,8 @@ class UserDeleteTaskTestSpec extends BaseTestSpec {
   "event" should " process the input map and return metadata " in {
     val event = new Event(JSONUtil.deserialize[util.Map[String, Any]](EventFixture.EVENT_2), 0, 1)
     event.isValid should be(true)
-    event.action should be("auto-create")
-    //event.objectId should be("do_113244425048121344131")
-    event.eData.size should be(8)
-    //event.metadata.size should be(63)
+    event.action should be("delete-user")
+    event.eData.size should be(9)
   }
 
    ignore should "generate event" in {
